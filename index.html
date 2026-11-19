@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title data-i18n="meta.homeTitle">CSLE — 中文表达式检查与转换</title>
+    <meta name="description" data-i18n-attr="content:meta.homeDesc" content="检查代码中的中文字符串字面量，在简体、台湾、香港与通用繁体用法之间快速转换。" />
+    <link rel="icon" type="image/svg+xml" href="./favicon.svg" />
+    <script type="module" src="./src/main.js"></script>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container header-inner">
+        <a class="brand" href="./" aria-label="CSLE">
+          <img class="brand-mark" src="./favicon.svg" alt="" />
+          <span class="brand-name">CSLE</span>
+          <span class="brand-sub" data-i18n="nav.brandSub">中文表达式工具</span>
+        </a>
+        <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="菜单" data-i18n-attr="aria-label:nav.menu">
+          <span></span><span></span><span></span>
+        </button>
+        <nav class="site-nav" id="site-nav" aria-label="主导航">
+          <a class="nav-link is-current" href="./" data-i18n="nav.home">首页</a>
+          <a class="nav-link" href="./docs/" data-i18n="nav.docs">文档</a>
+          <a class="nav-link" href="https://github.com/amlzq/CsleInspection" target="_blank" rel="noopener" data-i18n="nav.github">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero">
+        <div class="container hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow" data-i18n="hero.eyebrow">开源 · 免费 · 双编辑器支持</p>
+            <h1>
+              <span data-i18n="hero.title1">让中文表达，</span>
+              <span class="accent-text" data-i18n="hero.title2">跨地区一致</span>
+            </h1>
+            <p class="hero-desc" data-i18n="hero.desc">检查代码中的中文字符串字面量，在简体、台湾、香港与通用繁体用法之间快速转换。</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="./docs/" data-i18n="hero.ctaDocs">阅读文档</a>
+              <a class="btn btn-secondary" href="https://marketplace.visualstudio.com/items?itemName=amlzq.csle-diagnostic" target="_blank" rel="noopener" data-i18n="hero.ctaVscode">安装 VS Code 扩展</a>
+            </div>
+            <p class="hero-note" data-i18n="hero.note">Apache 2.0 开源许可 · 无追踪 · 无广告</p>
+          </div>
+
+          <div class="hero-demo">
+            <div class="demo-window">
+              <div class="demo-topbar">
+                <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <span data-i18n="hero.demoTitle">实时转换示例</span>
+              </div>
+              <div class="demo-options" role="group" aria-label="转换方向">
+                <button type="button" class="demo-option is-active" data-demo="hk" data-i18n="hero.demo.hk">简体 → 香港</button>
+                <button type="button" class="demo-option" data-demo="tw" data-i18n="hero.demo.tw">简体 → 台湾</button>
+                <button type="button" class="demo-option" data-demo="cn" data-i18n="hero.demo.cn">繁体 → 简体</button>
+              </div>
+              <div class="demo-code">
+                <span class="demo-code-label" data-i18n="hero.demoBefore">检查到</span>
+                <pre><code data-demo-before>const message = '程序异常，请检查网络';</code></pre>
+              </div>
+              <div class="demo-arrow" aria-hidden="true">
+                <span data-i18n="hero.demoAfter">快速修复为</span>
+                <svg viewBox="0 0 24 24" width="18" height="18"><path d="M12 4v14m0 0-6-6m6 6 6-6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+              </div>
+              <div class="demo-code demo-code--after">
+                <span class="demo-code-label" data-i18n="hero.demoFixed">转换结果</span>
+                <pre><code data-demo-after>const message = '程式異常，請檢查網絡';</code></pre>
+              </div>
+              <p class="demo-caption" data-i18n="hero.demoCaption">悬停提示 → 快速修复（⌥.）</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="products">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker" data-i18n="products.kicker">两个产品</p>
+            <h2 data-i18n="products.title">为你的编辑器而选</h2>
+            <p data-i18n="products.subtitle">相同的核心能力，分别面向 VS Code 与 IntelliJ 平台 IDE。</p>
+          </div>
+          <div class="product-grid">
+            <article class="product-card">
+              <div class="product-card-top">
+                <span class="product-icon product-icon--vscode">VS</span>
+                <div>
+                  <h3 data-i18n="products.vscode.name">Chinese Expression Diagnostic</h3>
+                  <p class="product-kind" data-i18n="products.vscode.kind">VS Code 扩展</p>
+                </div>
+                <span class="version-badge">v0.3.0</span>
+              </div>
+              <p class="product-desc" data-i18n="products.vscode.desc">在 VS Code 中诊断中文字符串字面量，支持快速修复与全工作区批量处理。</p>
+              <ul class="check-list">
+                <li data-i18n="products.vscode.point1">命令面板批量诊断</li>
+                <li data-i18n="products.vscode.point2">团队共享自定义词典</li>
+                <li data-i18n="products.vscode.point3">支持 7 类常见语言</li>
+              </ul>
+              <div class="product-actions">
+                <a class="btn btn-primary btn-sm" href="https://marketplace.visualstudio.com/items?itemName=amlzq.csle-diagnostic" target="_blank" rel="noopener" data-i18n="products.install">前往市场安装</a>
+                <a class="text-link" href="https://github.com/amlzq/csle-diagnostic" target="_blank" rel="noopener" data-i18n="products.source">查看源码</a>
+              </div>
+            </article>
+
+            <article class="product-card">
+              <div class="product-card-top">
+                <span class="product-icon product-icon--intellij">IJ</span>
+                <div>
+                  <h3 data-i18n="products.intellij.name">Chinese Expression Inspection</h3>
+                  <p class="product-kind" data-i18n="products.intellij.kind">IntelliJ 平台插件</p>
+                </div>
+                <span class="version-badge">v0.9.0</span>
+              </div>
+              <p class="product-desc" data-i18n="products.intellij.desc">在 JetBrains IDE 中边写边检查，提供快速修复、项目级扫描与设置共享。</p>
+              <ul class="check-list">
+                <li data-i18n="products.intellij.point1">编辑器内实时高亮</li>
+                <li data-i18n="products.intellij.point2">按项目或全局共享设置</li>
+                <li data-i18n="products.intellij.point3">支持 9 类常见语言</li>
+              </ul>
+              <div class="product-actions">
+                <a class="btn btn-primary btn-sm" href="https://plugins.jetbrains.com/plugin/26834-chinese-expression-inspection" target="_blank" rel="noopener" data-i18n="products.install">前往市场安装</a>
+                <a class="text-link" href="https://github.com/amlzq/CsleInspection" target="_blank" rel="noopener" data-i18n="products.source">查看源码</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="features">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker" data-i18n="features.kicker">核心能力</p>
+            <h2 data-i18n="features.title">一套思路，两种编辑器</h2>
+            <p data-i18n="features.subtitle">从单行代码到整个项目，按需选择检查与转换方式。</p>
+          </div>
+          <div class="feature-grid">
+            <article class="feature-card"><span class="feature-icon">01</span><h3 data-i18n="features.f1.title">边写边检查</h3><p data-i18n="features.f1.desc">字符串字面量中的中文会被高亮标记，悬停即可查看问题说明。</p></article>
+            <article class="feature-card"><span class="feature-icon">02</span><h3 data-i18n="features.f2.title">四种地区用法</h3><p data-i18n="features.f2.desc">简体、台湾、香港与通用繁体任选检查与转换目标，默认跟随 IDE 显示语言。</p></article>
+            <article class="feature-card"><span class="feature-icon">03</span><h3 data-i18n="features.f3.title">精细排除</h3><p data-i18n="features.f3.desc">按语言排除 print、console.log、标签或键名，减少误报。</p></article>
+            <article class="feature-card"><span class="feature-icon">04</span><h3 data-i18n="features.f4.title">自定义词典</h3><p data-i18n="features.f4.desc">用 OpenCC 格式词条覆盖内置转换，可放入仓库供团队共享。</p></article>
+            <article class="feature-card"><span class="feature-icon">05</span><h3 data-i18n="features.f5.title">全项目扫描</h3><p data-i18n="features.f5.desc">一次扫描整个项目，按文件查看结果，勾选后批量接受，撤销一步还原。</p></article>
+            <article class="feature-card"><span class="feature-icon">06</span><h3 data-i18n="features.f6.title">按需自动检查</h3><p data-i18n="features.f6.desc">可开启打开项目后后台检查，默认关闭，不会自动改动文件。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="workflow">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker" data-i18n="workflow.kicker">工作流</p>
+            <h2 data-i18n="workflow.title">三步完成本地化校正</h2>
+            <p data-i18n="workflow.subtitle">不改变你的编码习惯，在需要的时候给出结果。</p>
+          </div>
+          <div class="step-grid">
+            <article class="step-card"><span class="step-num">1</span><h3 data-i18n="workflow.s1.title">编写或打开项目</h3><p data-i18n="workflow.s1.desc">像平时一样写代码；插件会在字符串中标记中文。</p></article>
+            <article class="step-card"><span class="step-num">2</span><h3 data-i18n="workflow.s2.title">选择目标用法</h3><p data-i18n="workflow.s2.desc">在设置里指定要检查的地区与目标地区。</p></article>
+            <article class="step-card"><span class="step-num">3</span><h3 data-i18n="workflow.s3.title">应用快速修复</h3><p data-i18n="workflow.s3.desc">单条修复或全项目批量接受，一次撤销即可回滚。</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="languages">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker" data-i18n="languages.kicker">支持的语言</p>
+            <h2 data-i18n="languages.title">覆盖常用开发语言</h2>
+            <p data-i18n="languages.subtitle">两个产品支持的语言范围略有差异，按你的编辑器选择即可。</p>
+          </div>
+          <div class="language-grid">
+            <div class="language-card">
+              <h3 data-i18n="languages.vscode">VS Code 扩展</h3>
+              <div class="tag-list">
+                <span>Dart</span><span>JavaScript</span><span>TypeScript</span><span>HTML</span><span>CSS</span><span>JSON</span><span>PHP</span><span>Python</span>
+              </div>
+            </div>
+            <div class="language-card">
+              <h3 data-i18n="languages.intellij">IntelliJ 插件</h3>
+              <div class="tag-list">
+                <span>Dart</span><span>Java</span><span>Kotlin</span><span>JavaScript</span><span>TypeScript</span><span>PHP</span><span>Python</span><span>HTML/CSS</span><span>XML</span><span>JSON</span>
+              </div>
+            </div>
+          </div>
+          <p class="language-more"><span data-i18n="languages.more">还需要其他语言？</span> <a href="https://github.com/amlzq/CsleInspection/issues" target="_blank" rel="noopener" data-i18n="languages.issue">在 GitHub 提 Issue</a></p>
+        </div>
+      </section>
+
+      <section class="section" id="gallery">
+        <div class="container">
+          <div class="section-head">
+            <p class="section-kicker" data-i18n="gallery.kicker">界面一览</p>
+            <h2 data-i18n="gallery.title">在编辑器里看看它怎么工作</h2>
+            <p data-i18n="gallery.subtitle">以下截图来自两个产品的实际界面。</p>
+          </div>
+          <div class="gallery-grid">
+            <figure class="gallery-item">
+              <img src="./images/vscode-quickfix.png" alt="VS Code 中的中文表达式诊断提示与快速修复" loading="lazy" />
+              <figcaption><strong data-i18n="gallery.vscodeQuickfix">VS Code 快速修复</strong><span data-i18n="gallery.vscodeQuickfixDesc">悬停查看问题，一键转换地区用法。</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="./images/vscode-settings.png" alt="VS Code 扩展的检查字形与排除规则设置" loading="lazy" />
+              <figcaption><strong data-i18n="gallery.vscodeSettings">VS Code 设置</strong><span data-i18n="gallery.vscodeSettingsDesc">选择检查字形、目标字形与排除项。</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="./images/intellij-quickfix.png" alt="IntelliJ IDE 中的中文表达式检查提示" loading="lazy" />
+              <figcaption><strong data-i18n="gallery.intellijQuickfix">IntelliJ 快速修复</strong><span data-i18n="gallery.intellijQuickfixDesc">编辑器内高亮中文并提供快速修正。</span></figcaption>
+            </figure>
+            <figure class="gallery-item">
+              <img src="./images/intellij-settings.png" alt="IntelliJ 插件的地区用法与排除设置" loading="lazy" />
+              <figcaption><strong data-i18n="gallery.intellijSettings">IntelliJ 设置</strong><span data-i18n="gallery.intellijSettingsDesc">按语言配置排除规则与检查选项。</span></figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--muted" id="faq">
+        <div class="container faq-layout">
+          <div class="section-head section-head--left">
+            <p class="section-kicker" data-i18n="faq.kicker">常见问题</p>
+            <h2 data-i18n="faq.title">你可能会问</h2>
+            <p data-i18n="faq.subtitle">关于两个产品最常被问到的几件事。</p>
+            <a class="text-link" href="./docs/" data-i18n="faq.more">查看完整文档 →</a>
+          </div>
+          <div class="faq-list">
+            <details><summary data-i18n="faq.q1">两个产品有什么区别？</summary><p data-i18n="faq.a1">功能定位相同，分别面向 VS Code 与 IntelliJ 平台 IDE；具体支持语言和操作路径略有差异。</p></details>
+            <details><summary data-i18n="faq.q2">会自动修改我的文件吗？</summary><p data-i18n="faq.a2">不会。快速修复由你主动触发；全项目扫描只生成结果列表，接受后才会修改，且可一次撤销。</p></details>
+            <details><summary data-i18n="faq.q3">自定义词典有数量限制吗？</summary><p data-i18n="faq.a3">IntelliJ 插件最多 20,000 条；VS Code 扩展按目标字形分文件存放，可通过管理界面导入导出。</p></details>
+            <details><summary data-i18n="faq.q4">可以把词典放在仓库里共享吗？</summary><p data-i18n="faq.a4">可以。VS Code 设置 customDictionaryDirectory 指向仓库内目录；IntelliJ 支持按项目或全局共享设置。</p></details>
+            <details><summary data-i18n="faq.q5">支持哪些中文地区？</summary><p data-i18n="faq.a5">简体中文、中文（台湾）、中文（香港）与通用繁体，检查和转换目标可分别设置。</p></details>
+          </div>
+        </div>
+      </section>
+
+      <section class="cta-section">
+        <div class="container cta-inner">
+          <div>
+            <h2 data-i18n="cta.title">现在就让中文表达更准确</h2>
+            <p data-i18n="cta.desc">选择你的编辑器，安装后即可开始检查。</p>
+          </div>
+          <a class="btn btn-light" href="./docs/" data-i18n="cta.button">查看使用文档</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="container footer-inner">
+        <div class="footer-brand">
+          <span class="brand-name">CSLE</span>
+          <p data-i18n="footer.tagline">中文表达式检查与转换工具。</p>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer.install">安装</h3>
+          <a href="https://marketplace.visualstudio.com/items?itemName=amlzq.csle-diagnostic" target="_blank" rel="noopener" data-i18n="footer.vscode">VS Code 扩展</a>
+          <a href="https://plugins.jetbrains.com/plugin/26834-chinese-expression-inspection" target="_blank" rel="noopener" data-i18n="footer.intellij">IntelliJ 插件</a>
+        </div>
+        <div class="footer-col">
+          <h3 data-i18n="footer.resources">资源</h3>
+          <a href="./docs/" data-i18n="nav.docs">文档</a>
+          <a href="https://github.com/amlzq/CsleInspection/issues" target="_blank" rel="noopener" data-i18n="footer.issues">问题反馈</a>
+          <a href="https://github.com/amlzq" target="_blank" rel="noopener">GitHub</a>
+        </div>
+      </div>
+      <div class="container footer-bottom">
+        <span data-i18n="footer.license">基于 Apache License 2.0 开源</span>
+        <div class="footer-bottom-right">
+          <div class="lang-picker" data-lang-picker>
+            <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language">
+              <span data-lang-current>简体中文</span>
+              <span class="lang-chevron" aria-hidden="true"></span>
+            </button>
+            <div class="lang-popup" id="lang-menu" role="menu" data-i18n-attr="aria-label:nav.language">
+              <button type="button" role="menuitemradio" data-lang="zh-CN">简体中文</button>
+              <button type="button" role="menuitemradio" data-lang="zh-HK">中文（香港）</button>
+              <button type="button" role="menuitemradio" data-lang="zh-TW">中文（臺灣）</button>
+              <button type="button" role="menuitemradio" data-lang="en">English</button>
+            </div>
+          </div>
+          <span>csle.zeaon.dev</span>
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
