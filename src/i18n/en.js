@@ -184,6 +184,7 @@ export default {
         desc: "Custom entries override built-in conversion; map a word to itself to keep it unchanged.",
         format: "Dictionaries use the OpenCC format: one <code>source&lt;Tab&gt;target</code> pair per line, with <code>#</code> starting a comment.",
         files: "Files are split by target glyph: <code>cn.txt</code>, <code>twp.txt</code>, <code>hk.txt</code> and <code>t.txt</code>.",
+        download: "Download custom dictionary template",
         vscode: "Set <code>customDictionaryDirectory</code> to a folder inside your repository to share it with your team; use the management command to search, edit, import or export entries.",
         vscodeCaption: "The VS Code settings page",
         intellij: "Add entries per target region in the settings, with search, edit, import and export (up to 20,000 entries); settings can be project-level or global.",

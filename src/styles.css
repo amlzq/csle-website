@@ -169,6 +169,8 @@ h1, h2, h3 { line-height: 1.25; letter-spacing: -0.01em; }
 
 .text-link, .inline-link { color: var(--accent); font-weight: 700; font-size: 14px; }
 .text-link:hover, .inline-link:hover { text-decoration: underline; }
+.download-link { display: inline-block; margin-top: 8px; }
+.download-link::after { content: " ↓"; }
 
 /* Hero */
 .hero {
@@ -429,7 +431,7 @@ details[open] summary::after { content: "−"; }
   position: absolute;
   top: calc(100% + 8px);
   right: 0;
-  min-width: 180px;
+  min-width: 220px;
   padding: 6px;
   background: var(--surface);
   border: 1px solid var(--line);
@@ -442,6 +444,7 @@ details[open] summary::after { content: "−"; }
   display: flex; align-items: center; justify-content: space-between; gap: 10px;
   width: 100%; border: 0; background: transparent;
   color: var(--muted); font-size: 13px; font-weight: 600; text-align: left;
+  white-space: nowrap;
   padding: 8px 12px; border-radius: 999px; cursor: pointer;
   transition: background 0.2s, color 0.2s;
 }

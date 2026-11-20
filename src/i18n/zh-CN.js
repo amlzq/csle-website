@@ -184,6 +184,7 @@ export default {
         desc: "自定义词条优先于内置转换；把词映射到自身即可固定它不被转换。",
         format: "词典使用 OpenCC 格式：每行「原词&lt;Tab&gt;目标词」，<code>#</code> 开头为注释。",
         files: "按目标字形分为 <code>cn.txt</code>、<code>twp.txt</code>、<code>hk.txt</code>、<code>t.txt</code> 四个文件。",
+        download: "下载自定义词典模板",
         vscode: "设置 <code>customDictionaryDirectory</code> 指向仓库内目录，即可在团队间共享；用「管理自定义词典」命令搜索、编辑、导入或导出。",
         vscodeCaption: "VS Code 设置页",
         intellij: "在设置页为每个目标地区添加词条，支持搜索、编辑、导入与导出，最多 20,000 条；设置可保存为项目级或全局共享。",
