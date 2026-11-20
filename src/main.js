@@ -241,6 +241,10 @@ function initProductSwitch() {
       element.hidden = element.dataset.product !== product;
     });
     window.sessionStorage.setItem(PRODUCT_KEY, product);
+
+    const url = new URL(window.location.href);
+    url.searchParams.set("product", product);
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   };
 
   if (picker && toggle && menu) {
@@ -267,8 +271,12 @@ function initProductSwitch() {
     });
   }
 
+  const fromUrl = new URLSearchParams(window.location.search).get("product");
   const saved = window.sessionStorage.getItem(PRODUCT_KEY);
-  setProduct(saved === "intellij" ? "intellij" : "vscode");
+  const initial = fromUrl === "intellij" || fromUrl === "vscode"
+    ? fromUrl
+    : saved === "intellij" ? "intellij" : "vscode";
+  setProduct(initial);
 }
 
 function initCopyButtons() {

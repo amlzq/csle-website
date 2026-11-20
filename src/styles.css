@@ -322,6 +322,7 @@ details[open] summary::after { content: "−"; }
 /* Footer */
 .site-footer { background: var(--footer-bg); color: var(--footer-text); padding-top: 56px; }
 .footer-inner { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 48px; padding-bottom: 44px; }
+.footer-brand-title { display: flex; align-items: center; gap: 10px; }
 .footer-brand .brand-name { color: var(--footer-text); font-size: 21px; }
 .footer-brand p { margin-top: 10px; color: var(--footer-muted); font-size: 14px; }
 .footer-col { display: grid; gap: 10px; align-content: start; }
