@@ -1,4 +1,3 @@
-import "./styles.css";
 import { LOCALES, getMessage } from "./i18n/index.js";
 
 const LANG_KEY = "csle-lang";
