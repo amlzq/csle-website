@@ -132,7 +132,6 @@ export default {
       productVscode: "VS Code extension",
       productIntellij: "IntelliJ plugin",
       tocLabel: "On this page",
-      current: "Viewing",
       install: {
         nav: "Installation",
         title: "Installation",

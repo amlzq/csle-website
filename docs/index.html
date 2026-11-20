@@ -28,26 +28,24 @@
     <main class="docs-page">
       <div class="container">
         <header class="page-head">
-          <p class="section-kicker" data-i18n="docs.kicker">使用指南</p>
-          <h1 data-i18n="docs.title">使用文档</h1>
+          <div class="page-head-title">
+            <h1 data-i18n="docs.title">使用文档</h1>
+            <span class="title-spacer" aria-hidden="true"></span>
+            <div class="product-select-wrap" data-product-picker data-current-product="vscode">
+              <button type="button" class="product-select" data-product-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="product-menu" data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
+                <span data-product-current>VS Code 扩展</span>
+              </button>
+              <div class="product-menu" id="product-menu" role="listbox" data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
+                <button type="button" role="option" aria-selected="true" data-product-option="vscode" data-i18n="docs.productVscode">VS Code 扩展</button>
+                <button type="button" role="option" aria-selected="false" data-product-option="intellij" data-i18n="docs.productIntellij">IntelliJ 插件</button>
+              </div>
+            </div>
+          </div>
           <p data-i18n="docs.subtitle">选择你正在使用的编辑器，查看对应的安装、配置与操作说明。</p>
         </header>
 
         <div class="docs-layout">
           <aside class="docs-sidebar">
-            <div class="sidebar-card">
-              <p class="sidebar-label" data-i18n="docs.productLabel">选择产品</p>
-              <div class="product-switch" role="group" aria-label="选择产品">
-                <button type="button" class="product-btn is-active" data-product-switch="vscode" aria-pressed="true">
-                  <span class="product-btn-icon product-icon--vscode">VS</span>
-                  <span data-i18n="docs.productVscode">VS Code 扩展</span>
-                </button>
-                <button type="button" class="product-btn" data-product-switch="intellij" aria-pressed="false">
-                  <span class="product-btn-icon product-icon--intellij">IJ</span>
-                  <span data-i18n="docs.productIntellij">IntelliJ 插件</span>
-                </button>
-              </div>
-            </div>
             <nav class="docs-toc" aria-label="文档目录">
               <p class="sidebar-label" data-i18n="docs.tocLabel">目录</p>
               <a class="toc-link is-active" href="#install" data-i18n="docs.install.nav">安装</a>
@@ -61,13 +59,7 @@
             </nav>
           </aside>
 
-          <article class="docs-content">
-            <p class="current-product">
-              <span data-i18n="docs.current">当前查看</span>
-              <strong data-product="vscode" data-i18n="docs.productVscode">VS Code 扩展</strong>
-              <strong data-product="intellij" data-i18n="docs.productIntellij" hidden>IntelliJ 插件</strong>
-            </p>
-
+          <div class="docs-sections">
             <section class="doc-section" id="install">
               <h2 data-i18n="docs.install.title">安装</h2>
               <p data-i18n="docs.install.desc">从官方市场安装后无需额外配置即可使用。</p>
@@ -227,9 +219,10 @@
             <section class="doc-section doc-help">
               <h2 data-i18n="docs.help.title">还没有解决？</h2>
               <p data-i18n="docs.help.desc">到 GitHub Issues 反馈问题或请求新的语言支持。</p>
-              <a class="btn btn-primary btn-sm" href="https://github.com/amlzq/CsleInspection/issues" target="_blank" rel="noopener" data-i18n="docs.help.button">提交 Issue</a>
+              <a class="btn btn-primary btn-sm" data-product="vscode" href="https://github.com/amlzq/csle-diagnostic/issues" target="_blank" rel="noopener" data-i18n="docs.help.button">提交 Issue</a>
+              <a class="btn btn-primary btn-sm" data-product="intellij" href="https://github.com/amlzq/CsleInspection/issues" target="_blank" rel="noopener" data-i18n="docs.help.button" hidden>提交 Issue</a>
             </section>
-          </article>
+          </div>
         </div>
       </div>
     </main>

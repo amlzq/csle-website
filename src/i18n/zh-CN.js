@@ -132,7 +132,6 @@ export default {
       productVscode: "VS Code 扩展",
       productIntellij: "IntelliJ 插件",
       tocLabel: "目录",
-      current: "当前查看",
       install: {
         nav: "安装",
         title: "安装",

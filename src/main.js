@@ -44,6 +44,12 @@ function translateValue(locale, key) {
   return value === undefined ? getMessage("en", key) : value;
 }
 
+function updateProductLabel(product) {
+  const label = document.querySelector("[data-product-current]");
+  const option = document.querySelector(`[data-product-option="${product}"]`);
+  if (label && option) label.textContent = option.textContent;
+}
+
 function applyI18n(locale) {
   document.documentElement.lang = locale;
 
@@ -88,6 +94,8 @@ function setLocale(locale) {
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 
   applyI18n(locale);
+  const picker = document.querySelector("[data-product-picker]");
+  if (picker) updateProductLabel(picker.dataset.currentProduct || "vscode");
 }
 
 function initLanguageSwitcher() {
@@ -173,24 +181,54 @@ function initDemo() {
 }
 
 function initProductSwitch() {
-  const buttons = document.querySelectorAll("[data-product-switch]");
-  if (!buttons.length) return;
+  const picker = document.querySelector("[data-product-picker]");
+  const toggle = document.querySelector("[data-product-toggle]");
+  const menu = document.querySelector(".product-menu");
+  const options = document.querySelectorAll("[data-product-option]");
+  if (!picker) return;
+
+  const close = () => {
+    if (!picker || !menu || !toggle) return;
+    picker.classList.remove("is-open");
+    menu.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
 
   const setProduct = (product) => {
-    buttons.forEach((button) => {
-      const active = button.dataset.productSwitch === product;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
+    options.forEach((option) => {
+      option.setAttribute("aria-selected", String(option.dataset.productOption === product));
     });
+    if (picker) picker.dataset.currentProduct = product;
+    updateProductLabel(product);
     document.querySelectorAll("[data-product]").forEach((element) => {
       element.hidden = element.dataset.product !== product;
     });
     window.sessionStorage.setItem(PRODUCT_KEY, product);
   };
 
-  buttons.forEach((button) => {
-    button.addEventListener("click", () => setProduct(button.dataset.productSwitch));
-  });
+  if (picker && toggle && menu) {
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const open = !menu.classList.contains("is-open");
+      picker.classList.toggle("is-open", open);
+      menu.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.addEventListener("click", (event) => event.stopPropagation());
+    document.addEventListener("click", (event) => {
+      if (!picker.contains(event.target)) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        setProduct(option.dataset.productOption);
+        close();
+        toggle.focus();
+      });
+    });
+  }
 
   const saved = window.sessionStorage.getItem(PRODUCT_KEY);
   setProduct(saved === "intellij" ? "intellij" : "vscode");
