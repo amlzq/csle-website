@@ -121,6 +121,7 @@ export default {
       vscodeSource: "VS Code source",
       intellijSource: "IntelliJ source",
       resources: "Resources",
+      theme: "Theme",
       issues: "Issues",
       license: "Open source under Apache License 2.0",
     },
@@ -215,4 +216,5 @@ export default {
       },
     },
     common: { copy: "Copy", copied: "Copied" },
+    theme: { light: "Light", dark: "Dark" },
 };

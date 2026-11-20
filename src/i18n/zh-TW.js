@@ -121,6 +121,7 @@ export default {
       vscodeSource: "VS Code 原始碼",
       intellijSource: "IntelliJ 原始碼",
       resources: "資源",
+      theme: "主題",
       issues: "問題回報",
       license: "基於 Apache License 2.0 開源",
     },
@@ -215,4 +216,5 @@ export default {
       },
     },
     common: { copy: "複製", copied: "已複製" },
+    theme: { light: "淺色", dark: "深色" },
 };

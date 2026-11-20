@@ -2,6 +2,7 @@ import { LOCALES, getMessage } from "./i18n/index.js";
 
 const LANG_KEY = "csle-lang";
 const PRODUCT_KEY = "csle-doc-product";
+const THEME_KEY = "csle-theme";
 
 const DEMO_CODES = {
   hk: {
@@ -49,6 +50,42 @@ function updateProductLabel(product) {
   if (label && option) label.textContent = option.textContent;
 }
 
+function detectTheme() {
+  const saved = window.localStorage.getItem(THEME_KEY);
+  if (saved === "light" || saved === "dark") return saved;
+  return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
+function applyTheme(theme) {
+  document.documentElement.dataset.theme = theme;
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.setAttribute("aria-pressed", String(theme === "dark"));
+  });
+  const label = document.querySelector("[data-theme-label]");
+  if (label) label.textContent = translateValue(currentLocale, `theme.${theme}`);
+}
+
+function initTheme() {
+  applyTheme(detectTheme());
+
+  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
+      window.localStorage.setItem(THEME_KEY, next);
+      applyTheme(next);
+    });
+  });
+
+  const media = window.matchMedia?.("(prefers-color-scheme: dark)");
+  if (media) {
+    const listener = (event) => {
+      if (!window.localStorage.getItem(THEME_KEY)) applyTheme(event.matches ? "dark" : "light");
+    };
+    if (media.addEventListener) media.addEventListener("change", listener);
+    else media.addListener(listener);
+  }
+}
+
 function applyI18n(locale) {
   document.documentElement.lang = locale;
 
@@ -93,6 +130,7 @@ function setLocale(locale) {
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 
   applyI18n(locale);
+  applyTheme(document.documentElement.dataset.theme || detectTheme());
   const picker = document.querySelector("[data-product-picker]");
   if (picker) updateProductLabel(picker.dataset.currentProduct || "vscode");
 }
@@ -294,6 +332,7 @@ function initScrollSpy() {
   update();
 }
 
+initTheme();
 initLanguageSwitcher();
 initNavToggle();
 initDemo();
