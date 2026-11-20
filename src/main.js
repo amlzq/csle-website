@@ -6,15 +6,15 @@ const PRODUCT_KEY = "csle-doc-product";
 
 const DEMO_CODES = {
   hk: {
-    before: "const message = '程序异常，请检查网络';",
+    source: "程序异常，请检查网络",
     after: "const message = '程式異常，請檢查網絡';",
   },
   tw: {
-    before: "const message = '程序异常，请检查网络';",
+    source: "程序异常，请检查网络",
     after: "const message = '程式異常，請檢查網路';",
   },
   cn: {
-    before: "const message = '程式異常，請檢查網路';",
+    source: "程式異常，請檢查網路",
     after: "const message = '程序异常，请检查网络';",
   },
 };
@@ -163,7 +163,7 @@ function initDemo() {
     button.addEventListener("click", () => {
       const code = DEMO_CODES[button.dataset.demo];
       if (!code) return;
-      before.textContent = code.before;
+      before.innerHTML = `const message = '<span class="demo-warning">${code.source}</span>';`;
       after.textContent = code.after;
       document.querySelectorAll("[data-demo]").forEach((item) => {
         item.classList.toggle("is-active", item === button);
