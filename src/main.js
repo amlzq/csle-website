@@ -243,7 +243,7 @@ function initProductSwitch() {
     window.sessionStorage.setItem(PRODUCT_KEY, product);
 
     const url = new URL(window.location.href);
-    url.searchParams.set("product", product);
+    url.searchParams.set("p", product);
     window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   };
 
@@ -271,7 +271,8 @@ function initProductSwitch() {
     });
   }
 
-  const fromUrl = new URLSearchParams(window.location.search).get("product");
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl = params.get("p") || params.get("product");
   const saved = window.sessionStorage.getItem(PRODUCT_KEY);
   const initial = fromUrl === "intellij" || fromUrl === "vscode"
     ? fromUrl
