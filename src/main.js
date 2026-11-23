@@ -108,36 +108,40 @@ function initDropdowns() {
   });
 }
 
-function detectTheme() {
+const THEME_MODES = ["system", "light", "dark"];
+
+function storedTheme() {
   const saved = window.localStorage.getItem(THEME_KEY);
-  if (saved === "light" || saved === "dark") return saved;
+  return THEME_MODES.includes(saved) ? saved : "system";
+}
+
+function resolveTheme(mode) {
+  if (mode !== "system") return mode;
   return window.matchMedia?.("(prefers-color-scheme: dark)").matches ? "dark" : "light";
 }
 
-function applyTheme(theme) {
-  document.documentElement.dataset.theme = theme;
-  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-    button.setAttribute("aria-pressed", String(theme === "dark"));
-  });
-  const label = document.querySelector("[data-theme-label]");
-  if (label) label.textContent = translateValue(currentLocale, `theme.${theme}`);
+function applyTheme(mode) {
+  document.documentElement.dataset.theme = resolveTheme(mode);
+  syncDropdownSelection(document.querySelector("[data-theme-picker]"), mode);
 }
 
 function initTheme() {
-  applyTheme(detectTheme());
+  applyTheme(storedTheme());
 
-  document.querySelectorAll("[data-theme-toggle]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const next = document.documentElement.dataset.theme === "dark" ? "light" : "dark";
-      window.localStorage.setItem(THEME_KEY, next);
-      applyTheme(next);
+  const picker = document.querySelector("[data-theme-picker]");
+  if (picker) {
+    picker.addEventListener(DROPDOWN_CHANGE, (event) => {
+      const mode = event.detail.value;
+      if (!THEME_MODES.includes(mode)) return;
+      window.localStorage.setItem(THEME_KEY, mode);
+      applyTheme(mode);
     });
-  });
+  }
 
   const media = window.matchMedia?.("(prefers-color-scheme: dark)");
   if (media) {
-    const listener = (event) => {
-      if (!window.localStorage.getItem(THEME_KEY)) applyTheme(event.matches ? "dark" : "light");
+    const listener = () => {
+      if (storedTheme() === "system") applyTheme("system");
     };
     if (media.addEventListener) media.addEventListener("change", listener);
     else media.addListener(listener);
@@ -178,7 +182,7 @@ function setLocale(locale) {
   window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
 
   applyI18n(locale);
-  applyTheme(document.documentElement.dataset.theme || detectTheme());
+  applyTheme(storedTheme());
   const productPicker = document.querySelector("[data-product-picker]");
   if (productPicker) {
     syncDropdownSelection(productPicker, productPicker.dataset.currentValue || "vscode");

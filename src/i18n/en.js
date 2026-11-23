@@ -221,5 +221,5 @@ export default {
       },
     },
     common: { copy: "Copy", copied: "Copied" },
-    theme: { light: "Light", dark: "Dark" },
+    theme: { system: "System", light: "Light", dark: "Dark" },
 };

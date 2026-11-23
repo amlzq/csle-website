@@ -221,5 +221,5 @@ export default {
       },
     },
     common: { copy: "複製", copied: "已複製" },
-    theme: { light: "淺色", dark: "深色" },
+    theme: { system: "跟隨系統", light: "淺色", dark: "深色" },
 };

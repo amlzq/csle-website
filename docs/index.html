@@ -262,17 +262,17 @@
       <div class="container footer-bottom">
         <span data-i18n="footer.license">基于 Apache License 2.0 开源</span>
         <div class="footer-bottom-right">
-          <button type="button" class="theme-toggle" data-theme-toggle aria-pressed="false" data-i18n-attr="aria-label:footer.theme" aria-label="主题">
-            <svg class="theme-icon theme-icon--sun" viewBox="0 0 24 24" aria-hidden="true">
-              <circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" stroke-width="1.8" />
-              <path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" />
-            </svg>
-            <svg class="theme-icon theme-icon--moon" viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5Z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" />
-            </svg>
-            <span data-theme-label>浅色</span>
-          </button>
-          <div class="dropdown dropdown--end dropdown--up" data-dropdown data-lang-picker data-current-value="zh-CN">
+          <div class="dropdown dropdown--end dropdown--up dropdown--dark" data-dropdown data-theme-picker data-current-value="system">
+            <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="theme-menu" data-i18n-attr="aria-label:footer.theme" aria-label="主题">
+              <span data-dropdown-current data-i18n="theme.system">跟随系统</span>
+            </button>
+            <div class="dropdown-menu" id="theme-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:footer.theme" aria-label="主题">
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="system" data-i18n="theme.system" aria-selected="true">跟随系统</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="light" data-i18n="theme.light" aria-selected="false">浅色</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="dark" data-i18n="theme.dark" aria-selected="false">深色</button>
+            </div>
+          </div>
+          <div class="dropdown dropdown--end dropdown--up dropdown--dark" data-dropdown data-lang-picker data-current-value="zh-CN">
             <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language" aria-label="语言">
               <span data-dropdown-current>简体中文</span>
             </button>

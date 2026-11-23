@@ -292,6 +292,30 @@ h1, h2, h3 { line-height: 1.25; letter-spacing: -0.01em; }
 .dropdown-option[aria-selected="true"] { font-weight: 700; box-shadow: inset 0 0 0 1px var(--accent-border); }
 .dropdown-option[aria-selected="true"]::after { content: "✓"; font-weight: 800; }
 
+.dropdown--dark { color: var(--footer-text); }
+.dropdown--dark .dropdown-toggle {
+  background: rgba(148, 163, 184, 0.08);
+  border-color: rgba(148, 163, 184, 0.35);
+  color: var(--footer-text);
+}
+.dropdown--dark .dropdown-toggle:hover,
+.dropdown--dark.is-open .dropdown-toggle {
+  background: rgba(148, 163, 184, 0.16);
+  border-color: rgba(148, 163, 184, 0.7);
+}
+.dropdown--dark .dropdown-menu {
+  background: var(--footer-bg);
+  border-color: var(--footer-line);
+  color: var(--footer-text);
+}
+.dropdown--dark .dropdown-option { color: var(--footer-muted); }
+.dropdown--dark .dropdown-option:hover,
+.dropdown--dark .dropdown-option[aria-selected="true"] {
+  background: rgba(148, 163, 184, 0.16);
+  color: var(--footer-text);
+}
+.dropdown--dark .dropdown-option[aria-selected="true"] { box-shadow: inset 0 0 0 1px rgba(148, 163, 184, 0.4); }
+
 .dropdown--end .dropdown-menu { left: auto; right: 0; }
 .dropdown--up .dropdown-menu { top: auto; bottom: calc(100% + 8px); }
 
@@ -383,16 +407,6 @@ details[open] summary::after { content: "−"; }
 .footer-bottom { border-top: 1px solid var(--footer-line); padding: 20px 0 28px; display: flex; justify-content: space-between; gap: 16px; color: var(--footer-faint); font-size: 13px; }
 .footer-bottom-right { display: flex; align-items: center; gap: 20px; }
 
-.theme-toggle {
-  display: inline-flex; align-items: center; gap: 8px;
-  background: transparent; border: 1px solid rgba(148, 163, 184, 0.35);
-  border-radius: 8px; color: var(--footer-text);
-  font-size: 13px; padding: 6px 11px; cursor: pointer;
-  transition: border-color 0.2s, background 0.2s;
-}
-.theme-toggle:hover { border-color: rgba(148, 163, 184, 0.7); background: rgba(255, 255, 255, 0.05); }
-.theme-icon { width: 14px; height: 14px; }
-[data-theme="light"] .theme-icon--moon, [data-theme="dark"] .theme-icon--sun { display: none; }
 
 /* Docs */
 .docs-page { padding: 56px 0 96px; }
