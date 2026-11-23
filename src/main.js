@@ -50,6 +50,13 @@ function updateProductLabel(product) {
   if (label && option) label.textContent = option.textContent;
 }
 
+function updateDemoLabel(demo, text) {
+  const label = document.querySelector("[data-demo-current]");
+  if (!label) return;
+  label.textContent = text;
+  label.dataset.i18n = `hero.demo.${demo}`;
+}
+
 function detectTheme() {
   const saved = window.localStorage.getItem(THEME_KEY);
   if (saved === "light" || saved === "dark") return saved;
@@ -200,21 +207,56 @@ function initNavToggle() {
 }
 
 function initDemo() {
+  const picker = document.querySelector("[data-demo-picker]");
+  const toggle = document.querySelector("[data-demo-toggle]");
+  const menu = document.querySelector(".demo-menu");
   const before = document.querySelector("[data-demo-before]");
   const after = document.querySelector("[data-demo-after]");
   if (!before || !after) return;
 
-  document.querySelectorAll("[data-demo]").forEach((button) => {
-    button.addEventListener("click", () => {
-      const code = DEMO_CODES[button.dataset.demo];
-      if (!code) return;
-      before.innerHTML = `const message = '<span class="demo-warning">${code.source}</span>';`;
-      after.textContent = code.after;
-      document.querySelectorAll("[data-demo]").forEach((item) => {
-        item.classList.toggle("is-active", item === button);
+  const options = Array.from(document.querySelectorAll("[data-demo]"));
+  const close = () => {
+    if (!picker || !menu || !toggle) return;
+    picker.classList.remove("is-open");
+    menu.classList.remove("is-open");
+    toggle.setAttribute("aria-expanded", "false");
+  };
+  const selectDemo = (option) => {
+    const code = DEMO_CODES[option.dataset.demo];
+    if (!code) return;
+    before.innerHTML = `const message = '<span class="demo-warning">${code.source}</span>';`;
+    after.textContent = code.after;
+    options.forEach((item) => item.setAttribute("aria-selected", String(item === option)));
+    if (picker) picker.dataset.currentDemo = option.dataset.demo;
+    updateDemoLabel(option.dataset.demo, option.textContent);
+  };
+
+  if (picker && toggle && menu) {
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const open = !menu.classList.contains("is-open");
+      picker.classList.toggle("is-open", open);
+      menu.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+    menu.addEventListener("click", (event) => event.stopPropagation());
+    document.addEventListener("click", (event) => {
+      if (!picker.contains(event.target)) close();
+    });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") close();
+    });
+    options.forEach((option) => {
+      option.addEventListener("click", () => {
+        selectDemo(option);
+        close();
+        toggle.focus();
       });
     });
-  });
+  }
+
+  const initial = options.find((option) => option.dataset.demo === picker?.dataset.currentDemo);
+  if (initial) selectDemo(initial);
 }
 
 function initProductSwitch() {

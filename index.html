@@ -54,10 +54,15 @@
                 <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                 <span data-i18n="hero.demoTitle">实时转换示例</span>
               </div>
-              <div class="demo-options" role="group" aria-label="转换方向">
-                <button type="button" class="demo-option is-active" data-demo="hk" data-i18n="hero.demo.hk">简体 → 繁体（香港）</button>
-                <button type="button" class="demo-option" data-demo="tw" data-i18n="hero.demo.tw">简体 → 繁体（台湾）</button>
-                <button type="button" class="demo-option" data-demo="cn" data-i18n="hero.demo.cn">繁体 → 简体</button>
+              <div class="demo-select-wrap" data-demo-picker data-current-demo="hk">
+                <button type="button" class="demo-select" data-demo-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-menu" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
+                  <span data-demo-current data-i18n="hero.demo.hk">简体中文->中文（香港）</span>
+                </button>
+                <div class="demo-menu" id="demo-menu" role="listbox" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
+                  <button type="button" role="option" data-demo="tw" data-i18n="hero.demo.tw" aria-selected="false">简体中文->中文（台湾）</button>
+                  <button type="button" role="option" data-demo="hk" data-i18n="hero.demo.hk" aria-selected="true">简体中文->中文（香港）</button>
+                  <button type="button" role="option" data-demo="cn" data-i18n="hero.demo.cn" aria-selected="false">繁体中文->简体中文</button>
+                </div>
               </div>
               <div class="demo-code">
                 <pre><code data-demo-before>const message = '<span class="demo-warning">程序异常，请检查网络</span>';</code></pre>
