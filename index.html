@@ -54,14 +54,29 @@
                 <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                 <span data-i18n="hero.demoTitle">实时转换示例</span>
               </div>
-              <div class="dropdown dropdown--demo" data-dropdown data-demo-picker data-current-value="hk">
-                <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-menu" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
-                  <span data-dropdown-current data-i18n="hero.demo.hk">简体中文->中文（香港）</span>
-                </button>
-                <div class="dropdown-menu" id="demo-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
-                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="tw" data-i18n="hero.demo.tw" aria-selected="false">简体中文->中文（台湾）</button>
-                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="hk" data-i18n="hero.demo.hk" aria-selected="true">简体中文->中文（香港）</button>
-                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="cn" data-i18n="hero.demo.cn" aria-selected="false">繁体中文->简体中文</button>
+              <div class="demo-pickers">
+                <div class="dropdown" data-dropdown data-demo-source data-current-value="cn">
+                  <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-source-menu" data-i18n-attr="aria-label:hero.demo.source" aria-label="源词">
+                    <span data-dropdown-current data-i18n="hero.demo.glyphs.cn">简体中文</span>
+                  </button>
+                  <div class="dropdown-menu" id="demo-source-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:hero.demo.source" aria-label="源词">
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="cn" data-i18n="hero.demo.glyphs.cn" aria-selected="true">简体中文</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="hk" data-i18n="hero.demo.glyphs.hk" aria-selected="false">中文（香港）</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="tw" data-i18n="hero.demo.glyphs.tw" aria-selected="false">中文（台湾）</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="t" data-i18n="hero.demo.glyphs.t" aria-selected="false">繁体中文</button>
+                  </div>
+                </div>
+                <span class="demo-picker-arrow" aria-hidden="true">→</span>
+                <div class="dropdown" data-dropdown data-demo-target data-current-value="hk">
+                  <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-target-menu" data-i18n-attr="aria-label:hero.demo.target" aria-label="目标词">
+                    <span data-dropdown-current data-i18n="hero.demo.glyphs.hk">中文（香港）</span>
+                  </button>
+                  <div class="dropdown-menu" id="demo-target-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:hero.demo.target" aria-label="目标词">
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="cn" data-i18n="hero.demo.glyphs.cn" aria-selected="false">简体中文</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="hk" data-i18n="hero.demo.glyphs.hk" aria-selected="true">中文（香港）</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="tw" data-i18n="hero.demo.glyphs.tw" aria-selected="false">中文（台湾）</button>
+                    <button type="button" class="dropdown-option" role="option" data-dropdown-option="t" data-i18n="hero.demo.glyphs.t" aria-selected="false">繁体中文</button>
+                  </div>
                 </div>
               </div>
               <div class="demo-code">

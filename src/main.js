@@ -4,20 +4,17 @@ const LANG_KEY = "csle-lang";
 const PRODUCT_KEY = "csle-doc-product";
 const THEME_KEY = "csle-theme";
 
-const DEMO_CODES = {
-  hk: {
-    source: "程序异常，请检查网络",
-    after: "const message = '程式異常，請檢查網絡';",
-  },
-  tw: {
-    source: "程序异常，请检查网络",
-    after: "const message = '程式異常，請檢查網路';",
-  },
-  cn: {
-    source: "程式異常，請檢查網路",
-    after: "const message = '程序异常，请检查网络';",
-  },
+const DEMO_GLYPHS = {
+  cn: { program: "程序", error: "异常", please: "请", check: "检查", network: "网络" },
+  hk: { program: "程式", error: "異常", please: "請", check: "檢查", network: "網絡" },
+  tw: { program: "程式", error: "異常", please: "請", check: "檢查", network: "網路" },
+  t: { program: "程式", error: "異常", please: "請", check: "檢查", network: "網路" },
 };
+
+function demoPhrase(glyph) {
+  const words = DEMO_GLYPHS[glyph] || DEMO_GLYPHS.cn;
+  return `${words.program}${words.error}，${words.please}${words.check}${words.network}`;
+}
 
 function detectLocale() {
   const fromUrl = new URLSearchParams(window.location.search).get("lang");
@@ -219,23 +216,41 @@ function initNavToggle() {
 }
 
 function initDemo() {
-  const picker = document.querySelector("[data-demo-picker]");
+  const sourcePicker = document.querySelector("[data-demo-source]");
+  const targetPicker = document.querySelector("[data-demo-target]");
   const before = document.querySelector("[data-demo-before]");
   const after = document.querySelector("[data-demo-after]");
-  if (!picker || !before || !after) return;
+  if (!sourcePicker || !targetPicker || !before || !after) return;
 
-  const applyDemo = (demo) => {
-    const code = DEMO_CODES[demo];
-    if (!code) return;
-    before.innerHTML = `const message = '<span class="demo-warning">${code.source}</span>';`;
-    after.textContent = code.after;
+  const params = new URLSearchParams(window.location.search);
+  const readGlyph = (name, fallback) => {
+    const value = params.get(name);
+    return value && DEMO_GLYPHS[value] ? value : fallback;
+  };
+  const updateUrl = (source, target) => {
+    const url = new URL(window.location.href);
+    url.searchParams.set("source", source);
+    url.searchParams.set("target", target);
+    window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   };
 
-  picker.addEventListener(DROPDOWN_CHANGE, (event) => applyDemo(event.detail.value));
+  sourcePicker.dataset.currentValue = readGlyph("source", sourcePicker.dataset.currentValue || "cn");
+  targetPicker.dataset.currentValue = readGlyph("target", targetPicker.dataset.currentValue || "hk");
 
-  const initial = picker.dataset.currentValue || "hk";
-  syncDropdownSelection(picker, initial);
-  applyDemo(initial);
+  const renderDemo = () => {
+    const source = sourcePicker.dataset.currentValue || "cn";
+    const target = targetPicker.dataset.currentValue || "hk";
+    syncDropdownSelection(sourcePicker, source);
+    syncDropdownSelection(targetPicker, target);
+    before.innerHTML = `const message = '<span class="demo-warning">${demoPhrase(source)}</span>';`;
+    after.textContent = `const message = '${demoPhrase(target)}';`;
+    updateUrl(source, target);
+  };
+
+  [sourcePicker, targetPicker].forEach((picker) => {
+    picker.addEventListener(DROPDOWN_CHANGE, renderDemo);
+  });
+  renderDemo();
 }
 
 function initProductSwitch() {
