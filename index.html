@@ -54,14 +54,14 @@
                 <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
                 <span data-i18n="hero.demoTitle">实时转换示例</span>
               </div>
-              <div class="demo-select-wrap" data-demo-picker data-current-demo="hk">
-                <button type="button" class="demo-select" data-demo-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-menu" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
-                  <span data-demo-current data-i18n="hero.demo.hk">简体中文->中文（香港）</span>
+              <div class="dropdown dropdown--demo" data-dropdown data-demo-picker data-current-value="hk">
+                <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="demo-menu" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
+                  <span data-dropdown-current data-i18n="hero.demo.hk">简体中文->中文（香港）</span>
                 </button>
-                <div class="demo-menu" id="demo-menu" role="listbox" data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
-                  <button type="button" role="option" data-demo="tw" data-i18n="hero.demo.tw" aria-selected="false">简体中文->中文（台湾）</button>
-                  <button type="button" role="option" data-demo="hk" data-i18n="hero.demo.hk" aria-selected="true">简体中文->中文（香港）</button>
-                  <button type="button" role="option" data-demo="cn" data-i18n="hero.demo.cn" aria-selected="false">繁体中文->简体中文</button>
+                <div class="dropdown-menu" id="demo-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:hero.demoDirection" aria-label="转换方向">
+                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="tw" data-i18n="hero.demo.tw" aria-selected="false">简体中文->中文（台湾）</button>
+                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="hk" data-i18n="hero.demo.hk" aria-selected="true">简体中文->中文（香港）</button>
+                  <button type="button" class="dropdown-option" role="option" data-dropdown-option="cn" data-i18n="hero.demo.cn" aria-selected="false">繁体中文->简体中文</button>
                 </div>
               </div>
               <div class="demo-code">
@@ -179,16 +179,15 @@
             </svg>
             <span data-theme-label>浅色</span>
           </button>
-          <div class="lang-picker" data-lang-picker>
-            <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language">
-              <span data-lang-current>简体中文</span>
-              <span class="lang-chevron" aria-hidden="true"></span>
+          <div class="dropdown dropdown--end dropdown--up" data-dropdown data-lang-picker data-current-value="zh-CN">
+            <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language" aria-label="语言">
+              <span data-dropdown-current>简体中文</span>
             </button>
-            <div class="lang-popup" id="lang-menu" role="menu" data-i18n-attr="aria-label:nav.language">
-              <button type="button" role="menuitemradio" data-lang="zh-CN">简体中文</button>
-              <button type="button" role="menuitemradio" data-lang="zh-HK">中文（香港）</button>
-              <button type="button" role="menuitemradio" data-lang="zh-TW">中文（台灣）</button>
-              <button type="button" role="menuitemradio" data-lang="en">English</button>
+            <div class="dropdown-menu" id="lang-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:nav.language" aria-label="语言">
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-CN" aria-selected="true">简体中文</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-HK" aria-selected="false">中文（香港）</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-TW" aria-selected="false">中文（台灣）</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="en" aria-selected="false">English</button>
             </div>
           </div>
         </div>

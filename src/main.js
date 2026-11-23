@@ -44,17 +44,71 @@ function translateValue(locale, key) {
   return value === undefined ? getMessage("en", key) : value;
 }
 
-function updateProductLabel(product) {
-  const label = document.querySelector("[data-product-current]");
-  const option = document.querySelector(`[data-product-option="${product}"]`);
-  if (label && option) label.textContent = option.textContent;
+const DROPDOWN_CHANGE = "dropdown:change";
+
+function syncDropdownSelection(picker, value) {
+  if (!picker) return null;
+  const options = Array.from(picker.querySelectorAll("[data-dropdown-option]"));
+  const selected = options.find((option) => option.dataset.dropdownOption === value) || null;
+  options.forEach((option) => option.setAttribute("aria-selected", String(option === selected)));
+  picker.dataset.currentValue = selected ? selected.dataset.dropdownOption : value;
+
+  const current = picker.querySelector("[data-dropdown-current]");
+  if (current && selected) {
+    current.textContent = selected.textContent;
+    if (selected.dataset.i18n) current.dataset.i18n = selected.dataset.i18n;
+    else delete current.dataset.i18n;
+  }
+  return selected;
 }
 
-function updateDemoLabel(demo, text) {
-  const label = document.querySelector("[data-demo-current]");
-  if (!label) return;
-  label.textContent = text;
-  label.dataset.i18n = `hero.demo.${demo}`;
+function initDropdowns() {
+  const pickers = Array.from(document.querySelectorAll("[data-dropdown]"));
+  if (!pickers.length) return;
+
+  const closeAll = (except) => {
+    pickers.forEach((picker) => {
+      if (picker === except) return;
+      picker.classList.remove("is-open");
+      const menu = picker.querySelector("[data-dropdown-menu]");
+      const toggle = picker.querySelector("[data-dropdown-toggle]");
+      if (menu) menu.classList.remove("is-open");
+      if (toggle) toggle.setAttribute("aria-expanded", "false");
+    });
+  };
+
+  pickers.forEach((picker) => {
+    const toggle = picker.querySelector("[data-dropdown-toggle]");
+    const menu = picker.querySelector("[data-dropdown-menu]");
+    if (!toggle || !menu) return;
+
+    toggle.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const open = !menu.classList.contains("is-open");
+      closeAll(picker);
+      picker.classList.toggle("is-open", open);
+      menu.classList.toggle("is-open", open);
+      toggle.setAttribute("aria-expanded", String(open));
+    });
+
+    menu.addEventListener("click", (event) => event.stopPropagation());
+    menu.querySelectorAll("[data-dropdown-option]").forEach((option) => {
+      option.addEventListener("click", () => {
+        syncDropdownSelection(picker, option.dataset.dropdownOption);
+        closeAll();
+        toggle.focus();
+        picker.dispatchEvent(new CustomEvent(DROPDOWN_CHANGE, {
+          bubbles: true,
+          detail: { value: option.dataset.dropdownOption, picker },
+        }));
+      });
+    });
+  });
+
+  document.addEventListener("click", () => closeAll());
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") closeAll();
+  });
 }
 
 function detectTheme() {
@@ -114,17 +168,7 @@ function applyI18n(locale) {
     });
   });
 
-  document.querySelectorAll("[data-lang]").forEach((button) => {
-    const active = button.dataset.lang === locale;
-    button.classList.toggle("is-active", active);
-    button.setAttribute("aria-checked", String(active));
-  });
-
-  const currentLabel = document.querySelector("[data-lang-current]");
-  if (currentLabel) {
-    const selected = LOCALES.find((item) => item.code === locale);
-    currentLabel.textContent = selected ? selected.label : locale;
-  }
+  syncDropdownSelection(document.querySelector("[data-lang-picker]"), locale);
 }
 
 function setLocale(locale) {
@@ -138,49 +182,17 @@ function setLocale(locale) {
 
   applyI18n(locale);
   applyTheme(document.documentElement.dataset.theme || detectTheme());
-  const picker = document.querySelector("[data-product-picker]");
-  if (picker) updateProductLabel(picker.dataset.currentProduct || "vscode");
+  const productPicker = document.querySelector("[data-product-picker]");
+  if (productPicker) {
+    syncDropdownSelection(productPicker, productPicker.dataset.currentValue || "vscode");
+  }
 }
 
 function initLanguageSwitcher() {
   const picker = document.querySelector("[data-lang-picker]");
-  const toggle = document.querySelector("[data-lang-toggle]");
-  const popup = document.querySelector(".lang-popup");
-
-  if (picker && toggle && popup) {
-    const close = () => {
-      popup.classList.remove("is-open");
-      toggle.setAttribute("aria-expanded", "false");
-    };
-
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const open = !popup.classList.contains("is-open");
-      popup.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-    });
-
-    popup.addEventListener("click", (event) => event.stopPropagation());
-    document.addEventListener("click", (event) => {
-      if (!picker.contains(event.target)) close();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") close();
-    });
-
-    popup.querySelectorAll("[data-lang]").forEach((button) => {
-      button.addEventListener("click", () => {
-        setLocale(button.dataset.lang);
-        close();
-        toggle.focus();
-      });
-    });
-  } else {
-    document.querySelectorAll("[data-lang]").forEach((button) => {
-      button.addEventListener("click", () => setLocale(button.dataset.lang));
-    });
+  if (picker) {
+    picker.addEventListener(DROPDOWN_CHANGE, (event) => setLocale(event.detail.value));
   }
-
   applyI18n(currentLocale);
 }
 
@@ -208,77 +220,31 @@ function initNavToggle() {
 
 function initDemo() {
   const picker = document.querySelector("[data-demo-picker]");
-  const toggle = document.querySelector("[data-demo-toggle]");
-  const menu = document.querySelector(".demo-menu");
   const before = document.querySelector("[data-demo-before]");
   const after = document.querySelector("[data-demo-after]");
-  if (!before || !after) return;
+  if (!picker || !before || !after) return;
 
-  const options = Array.from(document.querySelectorAll("[data-demo]"));
-  const close = () => {
-    if (!picker || !menu || !toggle) return;
-    picker.classList.remove("is-open");
-    menu.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-  };
-  const selectDemo = (option) => {
-    const code = DEMO_CODES[option.dataset.demo];
+  const applyDemo = (demo) => {
+    const code = DEMO_CODES[demo];
     if (!code) return;
     before.innerHTML = `const message = '<span class="demo-warning">${code.source}</span>';`;
     after.textContent = code.after;
-    options.forEach((item) => item.setAttribute("aria-selected", String(item === option)));
-    if (picker) picker.dataset.currentDemo = option.dataset.demo;
-    updateDemoLabel(option.dataset.demo, option.textContent);
   };
 
-  if (picker && toggle && menu) {
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const open = !menu.classList.contains("is-open");
-      picker.classList.toggle("is-open", open);
-      menu.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-    });
-    menu.addEventListener("click", (event) => event.stopPropagation());
-    document.addEventListener("click", (event) => {
-      if (!picker.contains(event.target)) close();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") close();
-    });
-    options.forEach((option) => {
-      option.addEventListener("click", () => {
-        selectDemo(option);
-        close();
-        toggle.focus();
-      });
-    });
-  }
+  picker.addEventListener(DROPDOWN_CHANGE, (event) => applyDemo(event.detail.value));
 
-  const initial = options.find((option) => option.dataset.demo === picker?.dataset.currentDemo);
-  if (initial) selectDemo(initial);
+  const initial = picker.dataset.currentValue || "hk";
+  syncDropdownSelection(picker, initial);
+  applyDemo(initial);
 }
 
 function initProductSwitch() {
   const picker = document.querySelector("[data-product-picker]");
-  const toggle = document.querySelector("[data-product-toggle]");
-  const menu = document.querySelector(".product-menu");
-  const options = document.querySelectorAll("[data-product-option]");
   if (!picker) return;
 
-  const close = () => {
-    if (!picker || !menu || !toggle) return;
-    picker.classList.remove("is-open");
-    menu.classList.remove("is-open");
-    toggle.setAttribute("aria-expanded", "false");
-  };
-
   const setProduct = (product) => {
-    options.forEach((option) => {
-      option.setAttribute("aria-selected", String(option.dataset.productOption === product));
-    });
-    if (picker) picker.dataset.currentProduct = product;
-    updateProductLabel(product);
+    if (product !== "intellij" && product !== "vscode") return;
+    syncDropdownSelection(picker, product);
     document.querySelectorAll("[data-product]").forEach((element) => {
       element.hidden = element.dataset.product !== product;
     });
@@ -289,29 +255,7 @@ function initProductSwitch() {
     window.history.replaceState(null, "", `${url.pathname}${url.search}${url.hash}`);
   };
 
-  if (picker && toggle && menu) {
-    toggle.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const open = !menu.classList.contains("is-open");
-      picker.classList.toggle("is-open", open);
-      menu.classList.toggle("is-open", open);
-      toggle.setAttribute("aria-expanded", String(open));
-    });
-    menu.addEventListener("click", (event) => event.stopPropagation());
-    document.addEventListener("click", (event) => {
-      if (!picker.contains(event.target)) close();
-    });
-    document.addEventListener("keydown", (event) => {
-      if (event.key === "Escape") close();
-    });
-    options.forEach((option) => {
-      option.addEventListener("click", () => {
-        setProduct(option.dataset.productOption);
-        close();
-        toggle.focus();
-      });
-    });
-  }
+  picker.addEventListener(DROPDOWN_CHANGE, (event) => setProduct(event.detail.value));
 
   const params = new URLSearchParams(window.location.search);
   const fromUrl = params.get("p") || params.get("product");
@@ -386,6 +330,7 @@ function initScrollSpy() {
 initTheme();
 initLanguageSwitcher();
 initNavToggle();
+initDropdowns();
 initDemo();
 initProductSwitch();
 initCopyButtons();

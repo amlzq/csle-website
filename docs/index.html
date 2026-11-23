@@ -41,13 +41,13 @@
           <div class="page-head-title">
             <h1 data-i18n="docs.title">使用文档</h1>
             <span class="title-spacer" aria-hidden="true"></span>
-            <div class="product-select-wrap" data-product-picker data-current-product="vscode">
-              <button type="button" class="product-select" data-product-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="product-menu" data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
-                <span data-product-current>VS Code 扩展</span>
+            <div class="dropdown dropdown--end" data-dropdown data-product-picker data-current-value="vscode">
+              <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="product-menu" data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
+                <span data-dropdown-current>VS Code 扩展</span>
               </button>
-              <div class="product-menu" id="product-menu" role="listbox" data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
-                <button type="button" role="option" aria-selected="true" data-product-option="vscode" data-i18n="docs.productVscode">VS Code 扩展</button>
-                <button type="button" role="option" aria-selected="false" data-product-option="intellij" data-i18n="docs.productIntellij">IntelliJ 插件</button>
+              <div class="dropdown-menu" id="product-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:docs.productLabel" aria-label="选择产品">
+                <button type="button" class="dropdown-option" role="option" aria-selected="true" data-dropdown-option="vscode" data-i18n="docs.productVscode">VS Code 扩展</button>
+                <button type="button" class="dropdown-option" role="option" aria-selected="false" data-dropdown-option="intellij" data-i18n="docs.productIntellij">IntelliJ 插件</button>
               </div>
             </div>
           </div>
@@ -272,16 +272,15 @@
             </svg>
             <span data-theme-label>浅色</span>
           </button>
-          <div class="lang-picker" data-lang-picker>
-            <button type="button" class="lang-toggle" data-lang-toggle aria-haspopup="menu" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language">
-              <span data-lang-current>简体中文</span>
-              <span class="lang-chevron" aria-hidden="true"></span>
+          <div class="dropdown dropdown--end dropdown--up" data-dropdown data-lang-picker data-current-value="zh-CN">
+            <button type="button" class="dropdown-toggle" data-dropdown-toggle aria-haspopup="listbox" aria-expanded="false" aria-controls="lang-menu" data-i18n-attr="aria-label:nav.language" aria-label="语言">
+              <span data-dropdown-current>简体中文</span>
             </button>
-            <div class="lang-popup" id="lang-menu" role="menu" data-i18n-attr="aria-label:nav.language">
-              <button type="button" role="menuitemradio" data-lang="zh-CN">简体中文</button>
-              <button type="button" role="menuitemradio" data-lang="zh-HK">中文（香港）</button>
-              <button type="button" role="menuitemradio" data-lang="zh-TW">中文（台灣）</button>
-              <button type="button" role="menuitemradio" data-lang="en">English</button>
+            <div class="dropdown-menu" id="lang-menu" role="listbox" data-dropdown-menu data-i18n-attr="aria-label:nav.language" aria-label="语言">
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-CN" aria-selected="true">简体中文</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-HK" aria-selected="false">中文（香港）</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="zh-TW" aria-selected="false">中文（台灣）</button>
+              <button type="button" class="dropdown-option" role="option" data-dropdown-option="en" aria-selected="false">English</button>
             </div>
           </div>
         </div>
