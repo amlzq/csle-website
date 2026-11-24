@@ -42,7 +42,7 @@ export default {
         desc: "在 VS Code 中诊断中文字符串字面量，支持快速修复与全工作区批量处理。",
         point1: "命令面板批量诊断",
         point2: "团队共享自定义词典",
-        point3: "支持 Dart、JavaScript、TypeScript、HTML、CSS、JSON、PHP、Python",
+        point3: "支持 CSS、Dart、HTML、JavaScript、JSON、PHP、Python、TypeScript",
       },
       intellij: {
         name: "Chinese Expression Inspection",
@@ -50,7 +50,7 @@ export default {
         desc: "在 JetBrains IDE 中边写边检查，提供快速修复、项目级扫描与设置共享。",
         point1: "编辑器内实时高亮",
         point2: "按项目或全局共享设置",
-        point3: "支持 Dart、Java、Kotlin、JavaScript、TypeScript、PHP、Python、HTML、CSS、XML、JSON",
+        point3: "支持 CSS、Dart、HTML、Java、JavaScript、JSON、Kotlin、PHP、Python、TypeScript、XML",
       },
       install: "前往市场安装",
       source: "查看源码",

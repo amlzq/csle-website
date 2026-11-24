@@ -42,7 +42,7 @@ export default {
         desc: "Diagnose Chinese string literals in VS Code with quick fixes and workspace-wide batch processing.",
         point1: "Batch diagnosis from the Command Palette",
         point2: "Team-shareable custom dictionaries",
-        point3: "Supports Dart, JavaScript, TypeScript, HTML, CSS, JSON, PHP, Python",
+        point3: "Supports CSS, Dart, HTML, JavaScript, JSON, PHP, Python, TypeScript",
       },
       intellij: {
         name: "Chinese Expression Inspection",
@@ -50,7 +50,7 @@ export default {
         desc: "Inspect as you type in JetBrains IDEs, with quick fixes, project scans and shared settings.",
         point1: "Live highlighting in the editor",
         point2: "Project-level or global settings",
-        point3: "Supports Dart, Java, Kotlin, JavaScript, TypeScript, PHP, Python, HTML, CSS, XML, JSON",
+        point3: "Supports CSS, Dart, HTML, Java, JavaScript, JSON, Kotlin, PHP, Python, TypeScript, XML",
       },
       install: "Get from marketplace",
       source: "View source",
